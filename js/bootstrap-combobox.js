@@ -390,9 +390,9 @@
       this.focused = false;
       var val = this.$element.val();
       if (!this.selected && val !== '' ) {
-        this.$element.val('');
-        this.$source.val('').trigger('change');
-        this.$target.val('').trigger('change');
+        if(this.$menu.children().length === 1) {
+          this.select()
+        }
       }
       if (!this.mousedover && this.shown) {setTimeout(function () { that.hide(); }, 200);}
     }
