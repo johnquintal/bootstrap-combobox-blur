@@ -390,7 +390,8 @@
       this.focused = false;
       var val = this.$element.val();
       if (!this.selected && val !== '' ) {
-        if(this.$menu.children().length === 1) {
+        var firstOption = this.$menu.find('li').first().attr('data-value');
+        if(this.$menu.children().length === 1 || val.toLowerCase() === firstOption.toLowerCase()) {
           this.select()
         }
       }
