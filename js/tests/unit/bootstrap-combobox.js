@@ -222,20 +222,40 @@ $(function () {
         equal($select.val(), 'ab', 'select value was correctly set')
       })
 
-      test("should clear input on blur when value does not exist", function() {
+      test("should retain input value on blur when value does not exist", function() {
         var $select = $('<select><option>aa</option></select>')
           , $input = $select.combobox().data('combobox').$element
           , combobox = $select.data('combobox')
 
-        $input.val('DOES NOT EXIST')
-        $input.trigger('keyup')
-        $input.trigger('blur')
+        var userInput = 'DOES NOT EXIST';
+        $input.val(userInput);
+        $input.trigger('keyup');
+        $input.trigger('blur');
 
-        equal($input.val(), '', 'input value was correctly set')
+        equal($input.val(), userInput, 'input value was correctly set')
         equal($select.val(), 'aa', 'select value was correctly set')
 
         combobox.$menu.remove()
       })
+
+      test("should set the target to input value when input value does not exist if configured to do so", function () {
+        var $select = $('<select><option>aa</option></select>')
+            , $input = $select.combobox({acceptsNewValue: true}).data('combobox').$element
+            , $target = $select.combobox().data('combobox').$target
+            , combobox = $select.data('combobox')
+
+        var userInput = 'DOES NOT EXIST';
+        $input.val(userInput);
+        $input.trigger('keyup');
+        $input.trigger('blur');
+
+        equal($input.val(), userInput, 'input value was correctly set')
+        equal($target.val(), userInput), 'target value was correctly set'
+        equal($select.val(), 'aa', 'select value was correctly set')
+
+        combobox.$menu.remove()
+      })
+
 
       test("should set placeholder text on the input if specified text of no value option", function() {
         var $select = $('<select><option value="">Pick One</option><option value="aa">aa</option><option value="ab">ab</option><option value="ac">ac</option></select>')

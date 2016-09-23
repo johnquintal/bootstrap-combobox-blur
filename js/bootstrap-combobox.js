@@ -35,6 +35,7 @@
     this.matcher = this.options.matcher || this.matcher;
     this.sorter = this.options.sorter || this.sorter;
     this.highlighter = this.options.highlighter || this.highlighter;
+    this.acceptsNewValue = this.options.acceptsNewValue || false;
     this.shown = false;
     this.selected = false;
     this.refresh();
@@ -391,8 +392,10 @@
       var val = this.$element.val();
       if (!this.selected && val !== '' ) {
         var firstOption = this.$menu.find('li').first().attr('data-value');
-        if(this.$menu.children().length === 1 || val.toLowerCase() === firstOption.toLowerCase()) {
+        if (this.$menu.children().length === 1 || (typeof firstOption !== 'undefined' && val.toLowerCase() === firstOption.toLowerCase())) {
           this.select()
+        } else if (this.acceptsNewValue) {
+            this.$target.val(val);
         }
       }
       if (!this.mousedover && this.shown) {setTimeout(function () { that.hide(); }, 200);}
