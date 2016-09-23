@@ -250,12 +250,11 @@ $(function () {
         $input.trigger('blur');
 
         equal($input.val(), userInput, 'input value was correctly set')
-        equal($target.val(), userInput), 'target value was correctly set'
+        equal($target.val(), userInput, 'target value was correctly set')
         equal($select.val(), 'aa', 'select value was correctly set')
 
         combobox.$menu.remove()
       })
-
 
       test("should set placeholder text on the input if specified text of no value option", function() {
         var $select = $('<select><option value="">Pick One</option><option value="aa">aa</option><option value="ab">ab</option><option value="ac">ac</option></select>')
